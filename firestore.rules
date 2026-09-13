@@ -1,0 +1,51 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn() && request.auth.token.email == "koushiksharan.08@gmail.com";
+    }
+
+    function validSlideCount(n) {
+      return n == 5 || n == 8 || n == 10 || n == 15;
+    }
+
+    function expectedAmount(n) {
+      return n == 5 ? 10 :
+             n == 8 ? 15 :
+             n == 10 ? 20 :
+             n == 15 ? 30 : 0;
+    }
+
+    match /siteSettings/payment {
+      allow read: if signedIn();
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /orders/{orderId} {
+      allow read: if isAdmin() || (signedIn() && resource.data.userId == request.auth.uid);
+
+      // Customer creates an order before the QR is shown.
+      allow create: if signedIn()
+        && request.resource.data.userId == request.auth.uid
+        && validSlideCount(request.resource.data.slideCount)
+        && request.resource.data.amount == expectedAmount(request.resource.data.slideCount)
+        && request.resource.data.status == "pending_payment";
+
+      // Customer confirms payment manually. No UTR and no admin verification.
+      allow update: if isAdmin()
+        || (signedIn()
+          && resource.data.userId == request.auth.uid
+          && resource.data.status == "pending_payment"
+          && request.resource.data.status == "payment_done"
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["status", "paymentDoneAt"]));
+
+      allow delete: if isAdmin();
+    }
+  }
+}

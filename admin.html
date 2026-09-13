@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>URPPTmaker Admin</title>
+<link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">UR<span>PPT</span>maker <small>ADMIN</small></div>
+  <button id="logout" class="ghost">Sign out</button>
+</header>
+<main class="shell">
+  <section id="gate" class="panel">
+    <h2>Admin access</h2>
+    <p class="muted">Sign in with the configured admin email.</p>
+    <button id="adminLogin" class="primary">Sign in with Google</button>
+    <p id="gateMsg" class="small"></p>
+  </section>
+
+  <div id="dashboard" class="hidden">
+    <section class="panel">
+      <div class="panel-head"><h2>Payment settings</h2><span class="pill">Firestore</span></div>
+      <div class="grid2">
+        <label>UPI ID<input id="upi"></label>
+        <label>Payee name<input id="payee"></label>
+      </div>
+      <label>Payment instructions<textarea id="instructions" rows="3"></textarea></label>
+      <div class="grid4">
+        <label>5 slides ₹<input id="p5" type="number" min="1"></label>
+        <label>8 slides ₹<input id="p8" type="number" min="1"></label>
+        <label>10 slides ₹<input id="p10" type="number" min="1"></label>
+        <label>15 slides ₹<input id="p15" type="number" min="1"></label>
+      </div>
+      <div class="notice">QR code is a fixed website asset to keep this project on Firebase Spark. To change the QR, replace <code>public/assets/payment-qr.png</code> and redeploy. No Storage or billing account is required.</div>
+      <button id="saveSettings" class="primary">Save payment settings</button>
+      <p id="settingsMsg" class="small"></p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Orders</h2><button id="refresh" class="ghost">Refresh</button></div>
+      <div id="orders"></div>
+    </section>
+  </div>
+</main>
+<script type="module" src="./js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>URPPTmaker — AI Presentation Maker</title>
+<link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">UR<span>PPT</span>maker</div>
+  <div id="userArea"><button id="loginBtn" class="ghost">Continue with Google</button></div>
+</header>
+
+<main class="shell">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">CREATE • PREVIEW • PAY • DOWNLOAD</p>
+      <h1>Make a presentation that looks ready to present.</h1>
+      <p class="muted">Choose your topic, slide count and design. Preview the style, pay using the default QR, and download your PPTX after you confirm payment.</p>
+    </div>
+    <div class="hero-card">
+      <div class="mini-stat"><b>₹10</b><span>from</span></div>
+      <div class="mini-stat"><b>4</b><span>slide plans</span></div>
+      <div class="mini-stat"><b>100%</b><span>web based</span></div>
+    </div>
+  </section>
+
+  <section class="workspace">
+    <div class="panel">
+      <div class="panel-head"><h2>1. Build your PPT</h2><span id="authStatus" class="pill">Sign in required</span></div>
+      <label>Presentation topic
+        <input id="topic" placeholder="e.g. Artificial Intelligence in Healthcare">
+      </label>
+      <label>Slides
+        <select id="slides">
+          <option value="5">5 slides — ₹10</option>
+          <option value="8">8 slides — ₹15</option>
+          <option value="10">10 slides — ₹20</option>
+          <option value="15">15 slides — ₹30</option>
+        </select>
+      </label>
+      <label>Design
+        <select id="design">
+          <option value="modern">Modern Dark</option>
+          <option value="clean">Clean Academic</option>
+          <option value="gradient">Gradient Tech</option>
+          <option value="minimal">Minimal White</option>
+        </select>
+      </label>
+      <button id="createBtn" class="primary" disabled>Create PPT & Pay</button>
+      <p id="message" class="small"></p>
+    </div>
+
+    <div class="panel preview-panel">
+      <div class="panel-head"><h2>2. Live preview</h2><span class="pill">Preview</span></div>
+      <div id="preview" class="ppt-preview">
+        <div class="preview-title">Your PPT preview</div>
+        <div class="preview-sub">Enter a topic and choose a design.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ordersSection" class="panel hidden">
+    <div class="panel-head"><h2>My orders</h2></div>
+    <div id="orders"></div>
+  </section>
+</main>
+
+<div id="paymentModal" class="modal hidden">
+  <div class="modal-card">
+    <button class="close" id="closePayment">×</button>
+    <h2>Pay & get your PPT</h2>
+    <p id="paymentSummary" class="muted"></p>
+    <div class="qr-wrap"><img src="./assets/payment-qr.png" alt="Payment QR"></div>
+    <div class="pay-details">
+      <b id="payee">VALABOJU KOUSHIK</b>
+      <span id="upi">6281567760@fam</span>
+      <span id="instructions">Scan QR and pay the exact amount shown.</span>
+    </div>
+    <div class="amount" id="payAmount">₹10</div>
+    <button id="submitPayment" class="primary">I Paid — Download PPT</button>
+    <p id="paymentMsg" class="small"></p>
+  </div>
+</div>
+
+<script type="module" src="./js/app.js"></script>
+</body>
+</html>
